@@ -44,13 +44,13 @@ If you are deploying multiple EchoBox nodes in the same area to test mesh covera
 This guide walks you through setting up the EchoBox script on a Raspberry Pi using a `systemd` service to ensure 24/7 uptime.
 
 ### 1. Install Prerequisites
-# bash
+bash
 sudo apt update
 sudo apt install python3 python3-pip python3-venv -y
 
 ### 2. Prepare the Environment
 Create a dedicated folder for the script and initialize a Python virtual environment:
-# bash
+bash
 mkdir ~/echobox
 cd ~/echobox
 python3 -m venv venv
@@ -59,11 +59,11 @@ pip install meshtastic pubsub
 
 ### 3. Add the Script
 Create your Python file and paste the echobox.py code into it:
-# bash
+bash
 nano echobox.py
 (Save and exit: Ctrl+O, Enter, Ctrl+X)
 
 Test it manually to ensure it connects (optional):
-# bash
+bash
 python3 echobox.py
 (Press Ctrl+C to stop the manual test).
