@@ -71,3 +71,41 @@ Test it manually to ensure it connects (optional):
 python3 echobox.py
 ```
 (Press Ctrl+C to stop the manual test).
+
+### 4. Create the systemd Service (Power Outage Protection)
+Create a service file to run the script in the background automatically:
+```bash
+sudo nano /etc/systemd/system/echobox.service
+```
+
+Paste the following configuration. ⚠️ IMPORTANT: Replace pi with your actual Raspberry Pi username if it is different!
+Ini, TOML
+```
+[Unit]
+Description=Meshtastic EchoBox Node
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/echobox
+ExecStart=/home/pi/echobox/venv/bin/python3 /home/pi/echobox/echobox.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+(Save and exit: Ctrl+O, Enter, Ctrl+X)
+
+### 5. Enable and Start the Service
+Enable the script to start on boot and launch it:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable echobox.service
+sudo systemctl start echobox.service
+```
+Helpful Commands:
+* View live logs: `journalctl -u echobox.service -f`
+* Stop the bot: sudo systemctl stop echobox.service
+* Restart the bot: sudo systemctl restart echobox.service
