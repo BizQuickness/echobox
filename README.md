@@ -80,7 +80,7 @@ sudo nano /etc/systemd/system/echobox.service
 
 Paste the following configuration. ⚠️ IMPORTANT: Replace `pi` with your actual Raspberry Pi username if it is different!
 
-`Ini, TOML`
+Ini, TOML
 ```
 [Unit]
 Description=Meshtastic EchoBox Node
