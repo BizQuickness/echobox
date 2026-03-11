@@ -90,7 +90,7 @@ After=network.target
 Type=simple
 User=pi
 WorkingDirectory=/home/pi/echobox
-ExecStart=/home/pi/echobox/venv/bin/python3 /home/pi/echobox/echobox.py
+ExecStart=/home/pi/echobox/venv/bin/python3 -u /home/pi/echobox/echobox.py
 Restart=always
 RestartSec=10
 
