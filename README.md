@@ -39,7 +39,7 @@ If you are deploying multiple EchoBox nodes in the same area to test mesh covera
 * **Node 3 (e.g., South Node):**
   * `INITIAL_DELAY = 45`
 
-## 🛠️ Installation & Setup (Raspberry Pi)
+## 🛠️ Installation & Setup (Raspberry Pi) (Debian)
 
 This guide walks you through setting up the EchoBox script on a Raspberry Pi using a `systemd` service to ensure 24/7 uptime.
 
