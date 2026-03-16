@@ -14,6 +14,7 @@ TRIGGER_WORD = "test"
 INITIAL_DELAY = 5    # Seconds to wait before sending a PUBLIC channel reply
 DM_DELAY = 5         # Seconds to wait before sending a DIRECT MESSAGE reply
 COOLDOWN_DELAY = 15  # Seconds to wait before processing the next person in line
+CHANNEL_HELP_ENABLED = False  # Set to True to allow "help" replies in the channel. Set to False if multiple bots are on the same channel to prevent spam!
 # ---------------------
 
 # This is our "To-Do List" (The Queue)
@@ -105,15 +106,19 @@ def on_receive(packet, interface):
                     print(f"📡 [PING] Adding {display_name} to the queue ({route_tag}).")
                     reply_queue.put((sender_id, display_name, hops, packet_id, is_dm, response_text))
                 
-                # SCENARIO B: They explicitly asked for help (Works in Channel OR DM)
+                # SCENARIO B: They explicitly asked for help
                 elif msg == "help":
-                    response_text = f"ℹ️ EchoBox: Please send '{TRIGGER_WORD}' to get a signal report with hop count."
-                    print(f"📡 [HELP] Adding instruction reply for {display_name} ({route_tag}).")
-                    reply_queue.put((sender_id, display_name, hops, packet_id, is_dm, response_text))
+                    # If it is a DM, always help. If it is a channel, check the toggle first!
+                    if is_dm or CHANNEL_HELP_ENABLED:
+                        response_text = f"ℹ️ EchoBox: Please send the exact word '{TRIGGER_WORD}' to get a signal report with hop count."
+                        print(f"📡 [HELP] Adding instruction reply for {display_name} ({route_tag}).")
+                        reply_queue.put((sender_id, display_name, hops, packet_id, is_dm, response_text))
+                    else:
+                        print(f"🔇 [HELP] Ignored channel help request from {display_name} (Channel help replies are disabled).")
                 
                 # SCENARIO C: They sent something random (Catch-all for DMs ONLY)
                 elif is_dm:
-                    response_text = f"ℹ️ EchoBox: Please send '{TRIGGER_WORD}' to get a signal report with hop count."
+                    response_text = f"ℹ️ EchoBox: Please send the exact word '{TRIGGER_WORD}' to get a signal report with hop count."
                     print(f"📡 [HELP] Adding instruction reply for {display_name} ({route_tag}).")
                     reply_queue.put((sender_id, display_name, hops, packet_id, is_dm, response_text))
 
