@@ -12,7 +12,7 @@ It is designed to help users test new nodes and connectivity without overloading
 * **Unified Queue System:** Uses a background worker and an infinite `queue.Queue()` to process incoming pings one at a time. Both public channel pings and Direct Messages are processed in order and protected by a hardware cooldown timer.
 * **Direct Message Routing:** Users who don't want to spam the public channel can Direct Message the node. The EchoBox detects this, applies a separate DM delay timer, and replies privately using threaded messaging.
 * **Self-Healing Hardware Watchdog:** Subscribes to `meshtastic.connection.lost`. If the USB cable is unplugged or the radio restarts, the script intentionally triggers a hard crash. When paired with a Linux `systemd` service, this forces the Pi to automatically heal the connection and restart the bot.
-* **Smart Help Instructions:** If you DM an EchoBox absolutely anything other than the trigger word, it politely replies privately with instructions so you are never left guessing. You can also send the word 'help' to Channel 1 'EchoBox' for these same instructions. This will help if the 'Trigger Word' ever changes.
+* **Smart Help Instructions:** If you DM an EchoBox absolutely anything other than the trigger word, it politely replies privately with instructions so you are never left guessing. You can also send the word `help` to Channel 1 `EchoBox` for these same instructions. This will help if the 'Trigger Word' ever changes.
 
 ## 🔌 Hardware Setup
 
